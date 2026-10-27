@@ -28,3 +28,8 @@ def create_patient(patient: schemas.PatientCreate, db: Session = Depends(get_db)
     db.refresh(db_patient)
     
     return db_patient
+
+@app.get("/patients/", response_model=list[schemas.PatientResponse])
+def read_patients(db: Session = Depends(get_db)):
+    patients = db.query(models.Patient).all()
+    return patients
