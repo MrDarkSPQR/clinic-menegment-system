@@ -33,3 +33,20 @@ def create_patient(patient: schemas.PatientCreate, db: Session = Depends(get_db)
 def read_patients(db: Session = Depends(get_db)):
     patients = db.query(models.Patient).all()
     return patients
+
+@app.post("/appointments/", response_model=schemas.AppointmentResponse)
+def create_appointment(appointment: schemas.AppointmentCreate, db: Session = Depends(get_db)):
+    db_appointment = models.Appointment(
+        patient_id=appointment.patient_id,
+        doctor_name=appointment.doctor_name,
+        appointment_date=appointment.appointment_date
+    )
+    db.add(db_appointment)
+    db.commit()
+    db.refresh(db_appointment)
+    return db_appointment
+
+@app.get("/appointments/", response_model=list[schemas.AppointmentResponse])
+def read_appointments(db: Session = Depends(get_db)):
+    appointments = db.query(models.Appointment).all()
+    return appointments
