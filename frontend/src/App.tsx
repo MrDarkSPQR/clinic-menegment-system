@@ -1,7 +1,9 @@
+import { BookingPage } from "./pages/BookingPage"
+
 function App() {
   return (
     <div>
-      <h1>Онлайн-запис на прийом до лікаря</h1>
+      <BookingPage/>
     </div>
   )
 }
