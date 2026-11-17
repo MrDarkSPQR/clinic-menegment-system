@@ -19,3 +19,8 @@ node_modules/
 dist/
 .env.local
 .env.*
+
+# Databases & extra venvs
+*.db
+*.sqlite3
+.venv/
